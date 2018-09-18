@@ -1,25 +1,59 @@
 <template>
-    <div class="input-section">
+<div>
+     <GiphyResult   />
+
+      <div class="input-section">
+        <div class="message-loader" v-if="isLoading === true">
+            <img src="./../assets/tenor.svg" />
+        </div>
         <form action="">
-            <a @click="translateMessage"  class="sendbutton" ><i class="icon ion-md-send"></i></a>
+            <a @click="translateMessage" :class="{'disabled': isLoading}"  class="sendbutton" ><i class="icon ion-md-send"></i></a>
             <textarea  v-model="messageText" type="text" name="command" placeholder="Enter Giphy command..."></textarea>
             
         </form>
     </div>
+</div>
+  
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+import GiphyService from "./services/GiphyService";
+import GiphyResult from "./GiphyResult.vue";
+import CONFIG from "@/config";
 
-@Component
+@Component({
+  components: {
+    GiphyResult
+  }
+})
 export default class ChatInput extends Vue {
   messageText: string = "";
+  gifResults: Array<Object> = [];
+  public isLoading: boolean = false;
 
   constructor() {
     super();
   }
+
+  beforeMount() {
+    this.isLoading = false;
+  }
+
   translateMessage(): void {
-    console.log(this.messageText);
+    this.isLoading = true;
+    GiphyService.translate(this.messageText)
+      .then(
+        response => {
+          this.$root.$emit(CONFIG.EVENTS.RESULT_FETCHED, response.data);
+        },
+        error => {
+          console.log(error);
+        }
+      )
+      .then(() => {
+        this.isLoading = false;
+      });
   }
 }
 </script>
@@ -39,6 +73,9 @@ a.sendbutton {
   &:hover {
     background: #7e6060;
   }
+  &.disabled {
+    background: grey;
+  }
   .ion-md-send:before {
     content: "\f376";
     font-size: 24px;
@@ -51,10 +88,24 @@ a.sendbutton {
 form {
   position: relative;
 }
+.message-loader {
+  width: 51px;
+  background: #6f6b6b;
+  padding: 0.5%;
+  border-radius: 30px;
+  margin-bottom: 2%;
+  position: relative;
+  left: 2%;
+  img {
+    width: 100%;
+    height: 11px;
+  }
+}
+
 .input-section {
   width: 100%;
   position: absolute;
-  bottom: -70px;
+  bottom: -5px;
   textarea {
     width: 100%;
     padding: 2% 0%;

@@ -15,11 +15,13 @@ import Header from "./Header.vue";
 import ChatMessage from './ChatMessage.vue';
 import ChatInput from './ChatInput.vue';
 
+
 @Component({
   components: {
     Header,
     ChatMessage,
     ChatInput
+    
   }
 })
 export default class ChatApp extends Vue {

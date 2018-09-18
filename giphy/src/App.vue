@@ -20,6 +20,9 @@ export default class App extends Vue {}
 </script>
 
 <style lang="less">
+.clearfix {
+  clear: both;
+}
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -27,11 +30,13 @@ export default class App extends Vue {}
 
   color: #2c3e50;
 
-  width: 20%;
-  margin: 60px auto;
+  width: 400px;
+  margin: 0px auto;
   background: white;
-  height: 510px;
-  position:relative;
+  height: 100%;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 body {
   background: black;
@@ -40,5 +45,6 @@ body {
 body,
 html {
   height: 100%;
+  min-height: auto;
 }
 </style>
