@@ -30,7 +30,7 @@ export default class GiphyResult extends Vue {
 
   clear(){
     this.result.images = null;
-    this.$root.$emit("clear:chat");
+    this.$root.$emit(CONFIG.EVENTS.CLEAR_CHAT);
   }
 
   pushConversation(image: any) {

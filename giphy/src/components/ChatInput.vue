@@ -37,7 +37,7 @@ export default class ChatInput extends Vue {
   }
 
   mounted(){
-      this.$root.$on("clear:chat",()=>{
+      this.$root.$on(CONFIG.EVENTS.CLEAR_CHAT,()=>{
           this.messageText = "";
       })
   }

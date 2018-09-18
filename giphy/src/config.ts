@@ -4,7 +4,8 @@ const CONFIG = {
     TranslateUrl:(searchParam: string)=> `${CONFIG.giphyBaseUrl}/v1/gifs/translate?api_key=${CONFIG.API_KEY}&s=${searchParam}`,
     EVENTS:{
         RESULT_FETCHED:'RESULT:FETCHED',
-        ADD_CONVERSATION:'ADD_CONVERSATION'
+        ADD_CONVERSATION:'ADD_CONVERSATION',
+        CLEAR_CHAT:'CLEAR_CHAT'
     }
 };
 export default CONFIG;
