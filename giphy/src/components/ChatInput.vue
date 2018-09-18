@@ -36,6 +36,12 @@ export default class ChatInput extends Vue {
     super();
   }
 
+  mounted(){
+      this.$root.$on("clear:chat",()=>{
+          this.messageText = "";
+      })
+  }
+
   beforeMount() {
     this.isLoading = false;
   }
